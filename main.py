@@ -166,7 +166,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-          # aicea creem conexiunile
+          # aicea creem conexiunile fiecarui buton inclusiv celor al operatiilor
         self.btn_1.clicked.connect(lambda :self.pressed(1))
         self.btn_2.clicked.connect(lambda: self.pressed(2))
         self.btn_3.clicked.connect(lambda: self.pressed(3))
@@ -184,6 +184,8 @@ class Ui_MainWindow(object):
         self.btn_zero.clicked.connect(lambda: self.pressed(0))
 
         self.btn_equal.clicked.connect(self.equal)
+        self.btn_reset.clicked.connect(self.all_clear)
+        self.btn_cancel.clicked.connect(self.clear)
 
 
     def pressed(self,number):  # Scriem o functie ca atunci cand apesi unul dintre butoane sa apara
@@ -195,6 +197,11 @@ class Ui_MainWindow(object):
         self.answer_box.setText(str(answer)) # punem iar string ca sa putem folosi lambda
     def all_clear(self):
         self.answer_box.clear()
+    def clear(self):
+        content = self.answer_box.text().strip()
+        self.answer_box.setText(content[:-1]) #:-1 inseamna ca o sa stearga de la inceput pana la ultimul
+        #cate un numar pe rand daca in loc de -1 punem -2 o sa stearga cate 2
+
 
 
     def retranslateUi(self, MainWindow):
