@@ -166,6 +166,36 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+          # aicea creem conexiunile
+        self.btn_1.clicked.connect(lambda :self.pressed(1))
+        self.btn_2.clicked.connect(lambda: self.pressed(2))
+        self.btn_3.clicked.connect(lambda: self.pressed(3))
+        self.btn_4.clicked.connect(lambda: self.pressed(4))
+        self.btn_5.clicked.connect(lambda: self.pressed(5))
+        self.btn_6.clicked.connect(lambda: self.pressed(6))
+        self.btn_7.clicked.connect(lambda: self.pressed(7))
+        self.btn_8.clicked.connect(lambda: self.pressed(8))
+        self.btn_9.clicked.connect(lambda: self.pressed(9))
+        self.btn_plus.clicked.connect(lambda: self.pressed("+"))
+        self.btn_minus.clicked.connect(lambda: self.pressed("-"))
+        self.btn_slash.clicked.connect(lambda: self.pressed("/"))
+        self.btn_multiplication.clicked.connect(lambda: self.pressed("*"))
+        self.btn_dot.clicked.connect(lambda: self.pressed("."))
+        self.btn_zero.clicked.connect(lambda: self.pressed(0))
+
+        self.btn_equal.clicked.connect(self.equal)
+
+
+    def pressed(self,number):  # Scriem o functie ca atunci cand apesi unul dintre butoane sa apara
+        #pe displayul calculatorului
+        self.answer_box.insert(str(number)) # trebuie sa folosim str atunci cand e chemat cu funcia lambda
+    def equal(self):
+        content = self.answer_box.text().strip()#acesta o sa ne deie raspunsul on partea de sus a calculatorului
+        answer = eval(content)
+        self.answer_box.setText(str(answer)) # punem iar string ca sa putem folosi lambda
+    def all_clear(self):
+        self.answer_box.clear()
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -193,7 +223,7 @@ class Ui_MainWindow(object):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    app.setStyle("Fusion")
+    app.setStyle("Fusion") # Aicea schimbam stilul de thema a aplicatiei
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
