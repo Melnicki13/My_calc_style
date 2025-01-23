@@ -13,6 +13,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.top_frame)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.answer_box = QtWidgets.QLineEdit(self.top_frame)
+        self.answer_box.setReadOnly(True)  # Am facut setare ca sa fie read only ca sa nu poata
+        #sa fie modificat manual de catre cineva
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setBold(True)
