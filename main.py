@@ -167,6 +167,11 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
           # aicea creem conexiunile fiecarui buton inclusiv celor al operatiilor
+
+        # Butoanele cu numere (1-9, 0) unde self.btn_? este butonul propriu-zis din interfață
+        #.clicked este semnalul care se activează când apeși butonul
+        #.connect() face legătura între apăsarea butonului și funcția care trebuie executată
+        #lambda :self.pressed(?) este o funcție temporară care transmite numărul ? către funcția pressed
         self.btn_1.clicked.connect(lambda :self.pressed(1))
         self.btn_2.clicked.connect(lambda: self.pressed(2))
         self.btn_3.clicked.connect(lambda: self.pressed(3))
@@ -176,26 +181,32 @@ class Ui_MainWindow(object):
         self.btn_7.clicked.connect(lambda: self.pressed(7))
         self.btn_8.clicked.connect(lambda: self.pressed(8))
         self.btn_9.clicked.connect(lambda: self.pressed(9))
+
+        #Butoanele pentru operații (+, -, *, /) funcționează la fel ca butoanele cu numere
+        #Diferența este că transmite simboluri pentru operații ("+", "-", "*", "/") în loc de numere
         self.btn_plus.clicked.connect(lambda: self.pressed("+"))
         self.btn_minus.clicked.connect(lambda: self.pressed("-"))
         self.btn_slash.clicked.connect(lambda: self.pressed("/"))
         self.btn_multiplication.clicked.connect(lambda: self.pressed("*"))
         self.btn_dot.clicked.connect(lambda: self.pressed("."))
         self.btn_zero.clicked.connect(lambda: self.pressed(0))
+          # Butoanele pentru funcții speciale nu folosesc lambda pentru că nu trebuie să transmită parametri
 
-        self.btn_equal.clicked.connect(self.equal)
-        self.btn_reset.clicked.connect(self.all_clear)
-        self.btn_cancel.clicked.connect(self.clear)
+
+        self.btn_equal.clicked.connect(self.equal) #equal calculează rezultatul
+        self.btn_reset.clicked.connect(self.all_clear)  #all_clear șterge tot
+        self.btn_cancel.clicked.connect(self.clear)  #clear șterge ultima cifră introdusă
 
 
     def pressed(self,number):  # Scriem o functie ca atunci cand apesi unul dintre butoane sa apara
         #pe displayul calculatorului
         self.answer_box.insert(str(number)) # trebuie sa folosim str atunci cand e chemat cu funcia lambda
     def equal(self):
-        content = self.answer_box.text().strip()#acesta o sa ne deie raspunsul on partea de sus a calculatorului
-        answer = eval(content)
-        self.answer_box.setText(str(answer)) # punem iar string ca sa putem folosi lambda
-    def all_clear(self):
+        content = self.answer_box.text().strip()#acesta o sa ne deie raspunsul in partea de sus a calculatorului
+        answer = eval(content) #Funcția eval(content) este o funcție încorporată
+        #în Python care evaluează un șir de caractere ca și cod Python
+        self.answer_box.setText(str(answer)) # punem  string deoarece setText() accepta doar text
+    def all_clear(self):   ## Șterge TOT conținutul din caseta de text
         self.answer_box.clear()
     def clear(self):
         content = self.answer_box.text().strip()
@@ -230,7 +241,9 @@ class Ui_MainWindow(object):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    app.setStyle("Fusion") # Aicea schimbam stilul de thema a aplicatiei
+    app.setStyle("Fusion") # Aicea schimbam stilul de thema a aplicatiei se mai poate folosi
+    # "Windows" "WindowsVista" "Fusion" "Macintosh" (doar pe macOS)
+
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
